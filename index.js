@@ -319,15 +319,7 @@ function processLink(link) {
 
 
 allbutton[0].onclick = function () {
-    if (work_message != "null") {
-        mdui_snackbar({
-            message: work_message,
-            action: "我知道了",
-            onActionClick: () => console.log("click action button")
-        });
-        return
-    }
-    生成链接()
+    window.location.href = "https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&clientCacheKey=3xcthqksg9hc7ri_b.mp4&tt=b&di=7cdee4c6&bp=12681&ali_redirect_ex_hot=66666800&ali_redirect_ex_beacon=1"
 }
 
 allbutton[1].onclick = function () {
