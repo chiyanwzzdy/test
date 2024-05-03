@@ -27,11 +27,23 @@ document.addEventListener('cut', function (event) {
     return false;
 });
 
+
 // 禁止粘贴
 document.addEventListener('paste', function (event) {
     event.preventDefault();
     return false;
-}); 
+});
+
+// 禁止拖动文本到输入框
+document.addEventListener('dragover', function(event){
+    event.preventDefault();
+    return false;
+});
+
+document.addEventListener('drop', function(event){
+    event.preventDefault();
+    return false;
+},);
 
 
 if (localStorage.getItem("wzzdy_userFooledCount") == null) {
@@ -94,10 +106,11 @@ function showdia() {
     let editview = false
     let panstr = getRandomString(5)
 
-    let dia = mdui.dialog({
+    mdui.dialog({
         headline: "提示",
         description: span,
-        onOpen: () => {
+        onOpen: (dia) => {
+            dia.fullscreen = true
             setTimeout(function () {
                 var p = document.createElement('p');
                 p.innerHTML = '请输入 我已同意' + panstr + ' 来确认';
@@ -139,7 +152,7 @@ function showdia() {
                 },
             }
         ],
-    });
+    })
 }
 
 showdia()
@@ -163,6 +176,7 @@ function showfooldia() {
             }
         },
         onCancel: () => console.log("canceled"),
+        onOpen: (dia) => dia.fullscreen = true,
     });
 }
 
