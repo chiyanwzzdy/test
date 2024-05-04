@@ -81,6 +81,9 @@
             word-break: break-word;
         }
 
+        mdui-dialog::part(panel) {
+            max-height: unset !important;
+        }
     </style>
 
     <style>
@@ -193,7 +196,8 @@
             <mdui-card style="visibility:hidden;width:100%" variant="outlined" style="margin: 20px 0 20px 0">
 
                 <mdui-segmented-button-group full-width selects="single" style="margin: 10px 10px;" value="zsf">
-                    <mdui-segmented-button value="zsf" type="button" style="border-radius: var(--shape-corner) !important">正式服</mdui-segmented-button>
+                    <mdui-segmented-button value="zsf" type="button"
+                        style="border-radius: var(--shape-corner) !important">正式服</mdui-segmented-button>
                 </mdui-segmented-button-group>
 
                 <mdui-select class="myedit" variant="outlined" label="地图模式">
@@ -202,7 +206,7 @@
                     <mdui-menu-item value="item-3">抢鲲大作战</mdui-menu-item>
                     <mdui-menu-item value="item-4">多重施法</mdui-menu-item>
 
-                  </mdui-select>
+                </mdui-select>
 
                 <mdui-button class="mybutton">启动</mdui-button>
 

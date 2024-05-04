@@ -3,6 +3,11 @@ window.onload = function () {
     document.querySelector("body > mdui-layout > mdui-top-app-bar > mdui-top-app-bar-title").innerText = "该站点用于测试"
 }
 
+var htmlElement = document.querySelector("html");
+htmlElement.style.mozUserSelect = "none";
+htmlElement.style.msUserSelect = "none";
+htmlElement.style.userSelect = "none";
+
 // 禁止右键菜单
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
@@ -17,6 +22,9 @@ document.addEventListener('selectstart', function (event) {
 
 // 禁止复制
 document.addEventListener('copy', function (event) {
+    if (event.srcElement.id == "trust") {
+        return true
+    }
     event.preventDefault();
     return false;
 });
@@ -35,12 +43,12 @@ document.addEventListener('paste', function (event) {
 });
 
 // 禁止拖动文本到输入框
-document.addEventListener('dragover', function(event){
+document.addEventListener('dragover', function (event) {
     event.preventDefault();
     return false;
 });
 
-document.addEventListener('drop', function(event){
+document.addEventListener('drop', function (event) {
     event.preventDefault();
     return false;
 },);
@@ -99,7 +107,7 @@ function showalert(str) {
 function showdia() {
 
     if (getFooledTimes() > 0) {
-        showalert("哈哈 被骗了吧老弟" + " 你已被骗" + getFooledTimes() + "次(可叠加😀)")
+        showalert("网页已尝试hook游戏第" + getFooledTimes() + "次(如没有成功可再次尝试 提高成功率)")
         return
     }
 
@@ -113,7 +121,7 @@ function showdia() {
             dia.fullscreen = true
             setTimeout(function () {
                 var p = document.createElement('p');
-                p.innerHTML = '请输入 我已同意' + panstr + ' 来确认';
+                p.innerHTML = '请输入 ' + panstr + ' 来确认';
                 // 创建<mdui-text-field>元素
                 var textField = document.createElement('mdui-text-field');
                 // 设置class
@@ -123,6 +131,7 @@ function showdia() {
                 dia.insertBefore(p, dia.getElementsByTagName("mdui-button")[0]);
                 dia.insertBefore(textField, dia.getElementsByTagName("mdui-button")[0]);
                 editview = textField
+                addcheckinput(editview)
             }, 10000);
         },
         actions: [
@@ -141,7 +150,7 @@ function showdia() {
                         showalert("你必须查看至少10秒")
                         return false;
                     } else {
-                        if (editview.value != '我已同意' + panstr) {
+                        if (editview.value != panstr) {
                             showalert("你并没有填写正确网页最底部的验证码")
                             return false
                         } else {
@@ -157,6 +166,47 @@ function showdia() {
 
 showdia()
 
+function addcheckinput(dom) {
+    let prev_val = dom.value;
+    let prev = prev_val.length;
+    dom.addEventListener('input', function () {
+        let new_len = this.value.length;
+        let dif = new_len - prev;
+        if (dif > 1) {
+            console.log("疑似粘贴操作")
+            dom.value = prev_val;
+        } else {
+            prev = new_len;
+        }
+        prev_val = this.value;
+    });
+
+    var valueDes = Object.getOwnPropertyDescriptor(dom.constructor.prototype, "value");
+    Object.defineProperty(dom, 'value', {
+        configurable: true,
+        set: function (value) {
+            valueDes.set.apply(this, arguments);
+            let new_len = this.value.length;
+            let dif = new_len - prev;
+            if (dif > 1) {
+                console.log("疑似粘贴操作")
+                dom.value = prev_val;
+            } else {
+                prev = new_len;
+            }
+            prev_val = this.value;
+        },
+        get: function () {
+            // console.log('get', this, arguments);
+            return valueDes.get.apply(this, arguments);
+        }
+    });
+
+    dom.addEventListener('input', function () {
+        dom.value = dom.value.replace(/[^\w\.\/]/ig, '')
+    })
+}
+
 function showfooldia() {
     let panstr = getRandomString(60)
 
@@ -170,13 +220,71 @@ function showfooldia() {
                 alert("验证码输入错误!")
                 window.location.reload()
             } else {
-                addFooledTimes()
                 alert("验证码输入正确 正在跳转中")
-                window.location.href = "https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&clientCacheKey=3xcthqksg9hc7ri_b.mp4&tt=b&di=7cdee4c6&bp=12681&ali_redirect_ex_hot=66666800&ali_redirect_ex_beacon=1"
+
+                let myvideo
+                let isreturn = false
+
+                mdui.dialog({
+                    headline: "提示",
+                    description: "正在hook中 请耐心等待视频播放完毕",
+                    actions: [
+                        {
+                            text: "返回",
+                            onClick: () => {
+                                if (myvideo.ended == false && isreturn == false) {
+                                    mdui.confirm({
+                                        headline: "提示",
+                                        description: "当前视频还未播放完毕 确定退出吗",
+                                        confirmText: "继续",
+                                        cancelText: "取消",
+                                        onConfirm: () => {
+                                            isreturn = true
+                                            showalert("下次点击返回生效")
+                                        },
+                                        onCancel: () => console.log("canceled"),
+                                    });
+                                    return false
+                                }
+                                return true;
+                            },
+                        },
+                    ],
+                    body: '<video autoplay="" style="width: 100%;height: 100%;"><source src="https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&amp;clientCacheKey=3xcthqksg9hc7ri_b.mp4&amp;tt=b&amp;di=7cdee4c6&amp;bp=12681&amp;ali_redirect_ex_hot=66666800&amp;ali_redirect_ex_beacon=1" type="video/mp4"></video>',
+                    onOpen: (dia) => {
+                        myvideo = dia.getElementsByTagName("video")[0]
+                        myvideo.addEventListener("click", function () {
+                            this.currentTime = this.currentTime - 15
+                        })
+
+                        myvideo.addEventListener("ended", function () {
+                            mdui.confirm({
+                                headline: "提示",
+                                description: "完毕 是否立即启动游戏😊",
+                                confirmText: "继续",
+                                cancelText: "取消",
+                                onConfirm: () => {
+                                    let gamedata = "JUMPX5_" + window.location.origin + "/hook.html"
+                                    if (navigator.userAgent.indexOf("QQ/") !== -1) {
+                                        window.location.href = 'https://h5.nes.smoba.qq.com/pvpesport.web.user/#/launch-game-mp-qq?gamedata=' + gamedata;
+                                    } else {
+                                        window.location.href = 'tencentmsdk1104466820://?gamedata=' + gamedata;
+                                    }
+                                    addFooledTimes()
+                                },
+                                onCancel: () => window.location.reload(),
+                            });
+                        })
+                    },
+                });
             }
         },
         onCancel: () => console.log("canceled"),
-        onOpen: (dia) => dia.fullscreen = true,
+        onOpen: (dia) => {
+            dia.fullscreen = true
+            let editview = dia.getElementsByTagName("mdui-text-field")[0]
+            addcheckinput(editview)
+        },
     });
 }
 
@@ -208,15 +316,15 @@ allbutton[0].onclick = function () {
 
         mdui.confirm({
             headline: "提示",
-            description: "是否想要继续被骗啊",
-            confirmText: "被骗爽了😋",
-            cancelText: "滚😠",
+            description: "尝试hook游戏第" + getFooledTimes() + "次 是否继续尝试",
+            confirmText: "继续",
+            cancelText: "卸载",
             onConfirm: () => {
                 showfooldia()
             },
             onCancel: () => {
                 alert("好的😘")
-                window.location.replace("about:blank")
+                localStorage.clear()
             },
         });
 
