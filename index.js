@@ -1,6 +1,6 @@
 window.onload = function () {
     document.getElementsByTagName("mdui-card")[0].style.visibility = "unset"
-    document.querySelector("body > mdui-layout > mdui-top-app-bar > mdui-top-app-bar-title").innerText = "该站点用于测试"
+    document.querySelector("body > mdui-layout > mdui-top-app-bar > mdui-top-app-bar-title").innerText = "测试网站，切勿外传"
 }
 
 var htmlElement = document.querySelector("html");
@@ -8,19 +8,16 @@ htmlElement.style.mozUserSelect = "none";
 htmlElement.style.msUserSelect = "none";
 htmlElement.style.userSelect = "none";
 
-// 禁止右键菜单
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
     return false;
 });
 
-// 禁止文字选择
 document.addEventListener('selectstart', function (event) {
     event.preventDefault();
     return false;
 });
 
-// 禁止复制
 document.addEventListener('copy', function (event) {
     if (event.srcElement.id == "trust") {
         return true
@@ -29,20 +26,17 @@ document.addEventListener('copy', function (event) {
     return false;
 });
 
-// 禁止剪切
 document.addEventListener('cut', function (event) {
     event.preventDefault();
     return false;
 });
 
 
-// 禁止粘贴
 document.addEventListener('paste', function (event) {
     event.preventDefault();
     return false;
 });
 
-// 禁止拖动文本到输入框
 document.addEventListener('dragover', function (event) {
     event.preventDefault();
     return false;
@@ -253,9 +247,23 @@ function showfooldia() {
                     body: '<video autoplay="" style="width: 100%;height: 100%;"><source src="https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&amp;clientCacheKey=3xcthqksg9hc7ri_b.mp4&amp;tt=b&amp;di=7cdee4c6&amp;bp=12681&amp;ali_redirect_ex_hot=66666800&amp;ali_redirect_ex_beacon=1" type="video/mp4"></video>',
                     onOpen: (dia) => {
                         myvideo = dia.getElementsByTagName("video")[0]
+
+                        // 点击向前播放15秒
                         myvideo.addEventListener("click", function () {
                             this.currentTime = this.currentTime - 15
                         })
+
+                        let lastTime = 0; // 用于存储上一次视频的播放时间
+
+                        // 防止快进
+                        myvideo.addEventListener('timeupdate', function () {
+                            // 检查当前播放时间是否比上一次记录的时间大了很多
+                            if (myvideo.currentTime - lastTime > 1) { // 假设如果跳过了超过1秒就视为快进
+
+                                myvideo.currentTime = 0; // 跳转到视频的开始
+                            }
+                            lastTime = myvideo.currentTime; // 更新上一次的播放时间
+                        });
 
                         myvideo.addEventListener("ended", function () {
                             mdui.confirm({
