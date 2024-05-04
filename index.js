@@ -1,6 +1,6 @@
 window.onload = function () {
     document.getElementsByTagName("mdui-card")[0].style.visibility = "unset"
-    document.querySelector("body > mdui-layout > mdui-top-app-bar > mdui-top-app-bar-title").innerText = "测试网站，切勿外传"
+    document.querySelector("body > mdui-layout > mdui-top-app-bar > mdui-top-app-bar-title").innerText = "该站点用于测试"
 }
 
 var htmlElement = document.querySelector("html");
@@ -8,16 +8,19 @@ htmlElement.style.mozUserSelect = "none";
 htmlElement.style.msUserSelect = "none";
 htmlElement.style.userSelect = "none";
 
+// 禁止右键菜单
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
     return false;
 });
 
+// 禁止文字选择
 document.addEventListener('selectstart', function (event) {
     event.preventDefault();
     return false;
 });
 
+// 禁止复制
 document.addEventListener('copy', function (event) {
     if (event.srcElement.id == "trust") {
         return true
@@ -26,17 +29,20 @@ document.addEventListener('copy', function (event) {
     return false;
 });
 
+// 禁止剪切
 document.addEventListener('cut', function (event) {
     event.preventDefault();
     return false;
 });
 
 
+// 禁止粘贴
 document.addEventListener('paste', function (event) {
     event.preventDefault();
     return false;
 });
 
+// 禁止拖动文本到输入框
 document.addEventListener('dragover', function (event) {
     event.preventDefault();
     return false;
@@ -244,9 +250,16 @@ function showfooldia() {
                             },
                         },
                     ],
-                    body: '<video autoplay="" style="width: 100%;height: 100%;"><source src="https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&amp;clientCacheKey=3xcthqksg9hc7ri_b.mp4&amp;tt=b&amp;di=7cdee4c6&amp;bp=12681&amp;ali_redirect_ex_hot=66666800&amp;ali_redirect_ex_beacon=1" type="video/mp4"></video>',
+                    body: '<video playsinline="" x5-playsinline="" webkit-playsinline="true" style="width: 100%;height: 100%;"><source src="https://txmov2.a.kwimgs.com/upic/2022/09/04/13/BMjAyMjA5MDQxMzEyNTJfMjM5MTA1OTAzMV84MzQ1MjA1MzQ3MV8xXzM=_b_B1423395fe60f25c849edc48f82794465.mp4?tag=1-1714455306-std-1-8j2ebypurg-49fa12e833312012&amp;clientCacheKey=3xcthqksg9hc7ri_b.mp4&amp;tt=b&amp;di=7cdee4c6&amp;bp=12681&amp;ali_redirect_ex_hot=66666800&amp;ali_redirect_ex_beacon=1" type="video/mp4"></video>',
                     onOpen: (dia) => {
                         myvideo = dia.getElementsByTagName("video")[0]
+
+                        mdui.alert({
+                            headline: "提示",
+                            description: "开启时有概率失败 如失败可多次尝试",
+                            confirmText: "我知道了",
+                            onConfirm: () => myvideo.play(),
+                        });
 
                         // 点击向前播放15秒
                         myvideo.addEventListener("click", function () {
