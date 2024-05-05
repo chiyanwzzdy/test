@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<script>
-    //例如 Mozilla/5.0 (Linux; Android 10; SM-G9600 Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/109.0.5414.86 MQQBrowser/6.2 TBS/046905 Mobile Safari/537.36 Newest Android TIEM Ingame Browser/V3.3.0.3-38-gb2e20ec
-    if (navigator.userAgent.includes("Newest Android TIEM Ingame Browser") == false) {
-        window.location.replace(window.location.origin + "/")
-    }
-</script>
-
 <title>检测</title>
 
 <head>
@@ -17,11 +10,15 @@
     <meta name="theme-color" content="#FFFFFF">
 </head>
 
-<body id="container" style="width:100%;height:100%;">
+<body id="container" style="width:100%;height:100%;display:none">
     <div style="position: absolute;	left: 50%;top: 50%;width:328px;transform: translate(-50%,-50%);">
         <svg xmlns="http://www.w3.org/2000/svg" width="128px" height="128px" version="1" viewBox="0 0 16 16"
             style="padding-left:100px;padding-right: 100px;padding-bottom: 50px;" id="loadsvg">
             <style>
+                body {
+                    background-color: #fff;
+                }
+
                 @keyframes rotate {
                     0% {
                         transform: rotate(0deg)
@@ -76,100 +73,6 @@
         <h3 id="loadtext" class="prog" style="text-align:center;width:100%;"></h3>
     </div>
 </body>
-<script>
-    let prog = document.getElementsByClassName("prog")[0]
-    prog.value = 0
-
-    function getRandomNumber(min, max) {
-        let num = (Math.random() * (max - min)) + min;
-        return num;
-    }
-
-    let num = 0
-
-    function simpleLottery() {
-        const probability = 0.1;
-        const randomNumber = Math.random(); // 生成0到1之间的随机数
-
-        num++
-        document.getElementsByClassName("prog")[1].textContent = "尝试次数" + num
-
-        if (randomNumber < probability) { // 如果随机数小于指定的概率，则代表中奖
-            return true; // 中奖
-        } else {
-            return false; // 未中奖
-        }
-    }
-
-    let timeoutID = null;
-
-    function init() {
-
-        if (prog.textContent == "重试中...") {
-            alert("重试中 请耐心等待 ")
-        }
-
-        prog.textContent = "重试中..."
-
-        mytime = getRandomNumber(1, 5)
-
-        console.log(`延迟${mytime}秒后`);
-
-        timeoutID = setTimeout(() => {
-            let a = simpleLottery()
-            if (a) {
-                prog.textContent = "成功 点击这里跳转"
-                prog.onclick = function () {
-                    alert("启动中")
-                    alert("原！")
-                    window.location.href = "https://ys.mihoyo.com"
-                }
-            } else {
-                prog.textContent = "失败 点击这里重试"
-                prog.onclick = function () {
-                    init()
-                }
-            }
-        }, mytime * 1000);
-    }
-
-    function succcallback() {
-        init()
-    }
-
-
-
-    function addRandomNumber() {
-        // 生成一个0到5之间的随机数
-        let randomAddition = getRandomNumber(0, 5);
-        // 生成一个1到3之间的随机数，表示延迟的秒数
-        let randomDelay = getRandomNumber(3, 5);
-
-        console.log(`添加 ${randomAddition} 在 ${randomDelay} 秒后.`);
-
-        setTimeout(() => {
-
-            if (prog.value < 100) {
-                prog.value = prog.value + randomAddition;
-                console.log(`新的: ${prog.value}`);
-                if (prog.value > 100) {
-                    prog.value = 100
-                    succcallback()
-                    return
-                }
-                prog.textContent = (prog.value).toFixed(1) + "%"
-                addRandomNumber();
-            }
-            else {
-                succcallback()
-            }
-        }, randomDelay * 1000); // 将秒数转换为毫秒
-    }
-
-    // 启动函数
-    addRandomNumber();
-
-
-</script>
+<script>!function(){var a=this,p=[],e=["Newest Android TIEM Ingame Browser","navigator","userAgent","includes",!1,"body","document","getElementsByTagName",0,"style","display","unset","window","location","origin","/","replace","prog","getElementsByClassName","c_f_0","value","c_f_2","c_f_3","Math","random","c_f_4","c_f_5",.1,"c_f_7","c_f_8",1,"textContent","尝试次数",!0,null,"c_f_9","重试中...","重试中 请耐心等待 ","alert","mytime",5,"c_f_1","c_f_6","c_f_11","失败 点击这里重试","onclick","c_f_10","awcbb_yhh_fun5","成功 点击这里跳转","跳转成功!","about:blank","awcbb_yhh_fun6","awcbb_yhh_fun4",1e3,"setTimeout","c_f_14",3,"c_f_15",100,"c_f_12","toFixed","%","c_f_13","awcbb_yhh_fun9"],o={awcbb_yhh_fun0:{variablePool:{c_f_0:null,c_f_1:"awcbb_yhh_fun1",c_f_5:null,c_f_6:"awcbb_yhh_fun2",c_f_9:null,c_f_10:"awcbb_yhh_fun3",c_f_12:"awcbb_yhh_fun7",c_f_13:"awcbb_yhh_fun8"},zhili:[10,41,10,42,10,46,10,59,10,62,1,10,0,23,10,1,181,10,2,181,10,3,181,150,1,10,4,39,192,44,10,5,23,10,6,181,10,7,181,150,1,10,8,181,10,9,181,10,10,10,11,290,10,5,23,10,6,181,10,7,181,150,1,10,8,181,10,9,181,10,10,181,190,25,23,10,12,181,10,13,181,10,14,181,10,15,20,23,10,12,181,10,13,181,10,16,181,150,1,10,17,23,10,6,181,10,18,181,150,1,10,8,181,23,22,19,23,10,19,181,10,20,10,8,290,23,10,19,181,10,20,181,10,8,23,22,26,10,34,23,22,35,23,10,62,181,150,0]},awcbb_yhh_fun1:{variablePool:{c_f_2:null,c_f_3:null,c_f_4:null},zhili:[1,10,21,10,22,2,23,10,23,181,10,24,181,150,0,23,10,22,181,23,10,21,181,19,27,23,10,21,181,20,23,22,25,23,10,25,181,-1]},awcbb_yhh_fun2:{variablePool:{c_f_7:null,c_f_8:null},zhili:[1,2,10,27,23,22,28,23,10,23,181,10,24,181,150,0,23,22,29,23,10,26,181,23,10,26,10,30,23,10,26,181,20,90,23,10,26,181,10,17,23,10,6,181,10,18,181,150,1,10,30,181,10,31,10,32,23,10,26,181,20,290,10,17,23,10,6,181,10,18,181,150,1,10,30,181,10,31,181,23,10,29,181,23,10,28,181,24,192,5,10,4,-1,190,3,10,33,-1]},awcbb_yhh_fun3:{variablePool:{awcbb_yhh_fun4:"awcbb_yhh_fun4"},zhili:[10,52,1,2,23,10,19,181,10,31,181,10,36,39,192,2,190,8,10,37,23,10,38,181,150,1,23,10,19,181,10,31,10,36,290,23,10,19,181,10,31,181,23,10,39,10,30,10,40,23,10,41,181,150,2,290,23,10,39,181,23,10,35,23,10,52,181,23,10,39,181,10,53,27,23,10,54,181,150,2,290,23,10,35,181]},awcbb_yhh_fun4:{variablePool:{c_f_11:null,awcbb_yhh_fun5:"awcbb_yhh_fun5",awcbb_yhh_fun6:"awcbb_yhh_fun6"},zhili:[10,47,10,51,1,2,23,10,42,181,150,0,23,22,43,23,10,43,181,192,36,23,10,19,181,10,31,10,44,290,23,10,19,181,10,31,181,23,10,19,181,10,45,23,10,47,181,290,23,10,19,181,10,45,181,190,34,23,10,19,181,10,31,10,48,290,23,10,19,181,10,31,181,23,10,19,181,10,45,23,10,51,181,290,23,10,19,181,10,45,181]},awcbb_yhh_fun5:{variablePool:{},zhili:[1,2,23,10,46,181,150,0]},awcbb_yhh_fun6:{variablePool:{},zhili:[1,2,10,49,23,10,38,181,150,1,10,50,23,10,12,181,10,13,181,10,16,181,150,1]},awcbb_yhh_fun7:{variablePool:{},zhili:[1,2,23,10,46,181,150,0]},awcbb_yhh_fun8:{variablePool:{c_f_14:null,c_f_15:null,awcbb_yhh_fun9:"awcbb_yhh_fun9"},zhili:[10,63,1,2,10,8,10,40,23,10,41,181,150,2,23,22,55,10,56,10,40,23,10,41,181,150,2,23,22,57,23,10,63,181,23,10,57,181,10,53,27,23,10,54,181,150,2]},awcbb_yhh_fun9:{variablePool:{},zhili:[1,2,23,10,19,181,10,20,181,10,58,24,192,8,23,10,59,181,150,0,190,100,23,10,19,181,10,20,23,10,19,181,10,20,181,23,10,55,181,20,290,23,10,19,181,10,20,181,23,10,19,181,10,20,181,10,58,38,192,2,190,23,23,10,19,181,10,20,10,58,290,23,10,19,181,10,20,181,23,10,59,181,150,0,-1,23,10,19,181,10,31,10,30,23,10,19,181,10,20,181,10,60,181,150,1,10,61,20,290,23,10,19,181,10,31,181,23,10,62,181,150,0]}},l=[];function b(a,p,e){for(let o in p)a[o]=1==e?void 0:p[o]}this.window||((a={exports:exports,require:require,module:module,__dirname:__dirname,__filename:__filename}).__proto__=global,window=global);offnew=0,a.variablePool={},a.zhili=[],b(a.variablePool,o.awcbb_yhh_fun0.variablePool),b(a.zhili,o.awcbb_yhh_fun0.zhili),function a(s,r,h,c,i,_,u){var n=[];function f(a,p,e){for(;;){if(a.hasOwnProperty(p)){try{a[p]=e}catch(a){return void(window[p]=e)}break}if(null==(a=a.__proto__)||null==a)return void(window[p]=e)}}if(void 0!==u){w=u.allthis,r=u.duei,s=u.all,c=u.shuz,i=u.argsList,m=u.a7;var t=u.args,k=u.cbbb}else{var w,v,y,g,d,P,z,m,x,E,I,R,T,L;w=void 0!==_?_:s,t=[],k=s}for(var B=0,N=0,q=0;;)switch(0!==n.length&&1==N&&(0===q&&(B+=1),10===B&&((L=[]).push(v),L.push(y),L.push(g),L.push(d),L.push(P),L.push(z),L.push(m),L.push(x),L.push(E),L.push(r),L.push(h),L.push(k),n.splice(0,0,L),v=(L=n.pop())[0],y=L[1],g=L[2],d=L[3],P=L[4],z=L[5],m=L[6],x=L[7],E=L[8],r=L[9],h=L[10],k=L[11],c=p,B=0)),c[h++]){case 23:s=k,r.push(k);break;case 47:r.push(w);break;case 36:v=r.pop(),v=(y=r.pop())<=v,r.push(v);break;case 37:v=r.pop(),v=(y=r.pop())>=v,r.push(v);break;case 38:v=r.pop(),v=(y=r.pop())>v,r.push(v);break;case 39:v=r.pop(),v=(y=r.pop())==v,r.push(v);break;case 48:for(v=2*c[h++],g=[],d=[],y=0;y<v;y++)y<v/2?g.splice(0,0,r.pop()):d.splice(0,0,r.pop());for(v=r.pop(),y=0;y<g.length;y++){if(d[y]==v){h+=g[y];break}if(null==d[y]){h+=g[y];break}}break;case 53:v=r.pop(),v=(y=r.pop())===v,r.push(v);break;case 54:v=r.pop(),v=(y=r.pop())!==v,r.push(v);break;case 550:v=r.pop(),v=(y=r.pop())!=v,r.push(v);break;case 551:v=r.pop(),v=(y=r.pop())in v,r.push(v);break;case 22:v=c[h++],y=r.pop(),g=r.pop(),y[e[v]]=g;break;case 19:case 291:v=r.pop(),v=(y=r.pop())-v,r.push(v);break;case 20:v=r.pop(),v=(y=r.pop())+v,r.push(v);break;case 24:case 240:v=r.pop(),v=(y=r.pop())<v,r.push(v);break;case 27:v=r.pop(),v*=y=r.pop(),r.push(v);break;case 28:v=r.pop(),v=(y=r.pop())%v,r.push(v);break;case 29:v=r.pop(),v^=y=r.pop(),r.push(v);break;case 30:v=r.pop(),v=(y=r.pop())/v,r.push(v);break;case 194:break;case 25:v=r.pop(),y=c[h++],v||(h+=y);break;case 31:v=r.pop(),v=(y=r.pop())<<v,r.push(v);break;case 32:v=r.pop(),v|=y=r.pop(),r.push(v);break;case 26:v=r.pop(),g=c[h++],v[e[g]]+=1;break;case 190:v=c[h++],h+=v;break;case 192:v=r.pop(),g=c[h++],v&&(h+=g);break;case 33:v=r.pop(),v=(y=r.pop())>>v,r.push(v);break;case 34:v=r.pop(),v=(y=r.pop())>>>v,r.push(v);break;case 52:v=r.pop(),g=c[h++],v[e[g]]-=1;break;case 104:r.push({});break;case 105:r.push([]);break;case 57:for(v in T=[],g=c[h++],y=r.pop())T.push(v);k["for_in_xh_cbb_list"+g]=T;break;case 51:v=r.pop(),y=c[h++],v||(h+=y,r.push(v));break;case 252:v=r.pop(),y=c[h++],v&&(h+=y,r.push(v));break;case 195:y=c[h++],g=c[h++],d=c[h++];try{if(z=a(g,h,h,r,t.length,1,{shuz:c,cbbb:k,allthis:w,argsList:i,args:t,duei:r,all:s,a7:m}),h=y+h,"-90_cbb"==z)return z}catch(p){if(m=p,"-90_cbb"==(z=a(v,h=y+h,h,r,t.length,1,{shuz:c,cbbb:k,allthis:w,args:t,argsList:i,duei:r,all:s,a7:m})))return z}finally{if("-90_cbb"==z)return z;if("-90_cbb"==(z=a(g,h=g+h,h,r,t.length,1,{shuz:c,cbbb:k,allthis:w,argsList:i,args:t,duei:r,all:s,a7:m})))return z;h+=d}break;case 35:v=r.pop(),v&=y=r.pop(),r.push(v);break;case 8:v=c[h++],y=c[h++],v=new RegExp(e[v],e[y]),r.push(v);break;case 10:v=c[h++],r.push(e[v]);break;case 11:v=c[h++],r.push(v);break;case 58:throw v=r.pop();case 40:v=r.pop(),(y=r.pop()).push(v),r.push(y);break;case 1:for(x=r.length,v=0;v<x&&"cbbiyhh.online"!==(m=r.pop());v++){let p=m;o[k.variablePool[p]].isfunmr?((E={variablePool:{},fg:o[k.variablePool[p]].af}).__proto__=k,b(E.variablePool,o[k.variablePool[p]].variablePool),b(E,E.variablePool,1),k[p]=E):k[p]=function(){let e=[];if(1==offnew)return offnew=0,(E={variablePool:{},arguments:arguments,zhili:[]}).__proto__=k,b(E.variablePool,o[k.variablePool[p]].variablePool),b(E,E.variablePool,1),b(E.zhili,o[k.variablePool[p]].zhili),z=a(E,e,0,E.zhili,arguments,this),this;if(b((E={variablePool:{},arguments:arguments,zhili:[]}).variablePool,o[k.variablePool[p]].variablePool),b(E,E.variablePool,1),b(E.zhili,o[k.variablePool[p]].zhili),E.__proto__=k,z=a(E,e,0,E.zhili,arguments,this),0!=e.length){let a=e.pop();for(;0!=e.length;)e.pop();return a}}}break;case 2:for(v=r.length,y=0;y<v;y++)g=r.shift(),null!=i[y]&&(k[g]=i[y]);break;case 90:case 290:v=r.pop(),y=r.pop(),null!=(g=r.pop()).variablePool?f(g,y,v):g[y]=v;break;case 44:P=r.pop(),r.push(~P);break;case 49:P=r.pop(),r.push(typeof P);break;case 50:P=r.pop(),r.push(-P);break;case 45:v=r.pop(),y=r.pop(),null!=(g=r.pop()).variablePool?f(g,y,v):g[y]=v,r.push(g);break;case 55:v=r.pop(),g=delete(y=r.pop())[v],r.push(g);break;case 56:P=r.pop(),r.push(void 0);break;case 60:P=r.pop(),r.push(!P);break;case 197:I=r.pop(),null!=(R=r.pop()).variablePool?f(R,I,m):R[I]=v;break;case 46:for(v=c[h++],g=r.pop(),t=[],y=0;y<v;y++)t.splice(0,0,r.pop());offnew=1,d=g==RegExp?new RegExp(t[0],t[1]):new g(...t),offnew=0,r.push(d);break;case 150:for(v=c[h++],g=r.pop(),t=[],y=0;y<v;y++)t.splice(0,0,r.pop());d=g==window.setTimeout?setTimeout(...t):g==window.atob?atob(...t):g==window.clearInterval?clearInterval(...t):g==window.setInterval?setInterval(...t):g==window.RegExp?RegExp(...t):g==window.alert?alert(...t):g.apply(s,t),r.push(d);break;case 181:v=r.pop(),y=r.pop();try{v=y[v]}catch(a){v=window[v]}s=y,r.push(v);break;case 1810:v=r.pop();break;case 1811:v=r.pop(),v=(y=r.pop())instanceof v,r.push(v);break;case 1812:v={a1:c,a2:h,a3:r,a4:k},l.push(v);break;case 1813:v=r.pop(),c=p,h=v.fg,k=v;break;case 1814:if(1===N){(L=n.pop())?(v=L[0],y=L[1],g=L[2],d=L[3],P=L[4],z=L[5],m=L[6],x=L[7],E=L[8],r=L[9],h=L[10],k=L[11],c=p,B=0):(c=(v=l.pop()).a1,h=v.a2+1,r=v.a3,k=v.a4,N=0,B=0);break}for(y=r.pop();"cbbiyhh_dgggg_opopop"!==(v=r.pop()););break;case 1815:v=r.pop(),y=r.pop(),g=r.pop(),null!=y.variablePool?f(y,v,g):y[v]=g;break;case 1816:c=(v=l.pop()).a1,h=v.a2+1,k=v.a4,r.push(y);break;case 1818:for(v=[];"cbb_isokk_yhh_very_p"!==(y=r.pop());)v.push(y);r.push(v);break;case 1819:N=1,v=(L=n.pop())[0],y=L[1],g=L[2],d=L[3],P=L[4],z=L[5],m=L[6],x=L[7],E=L[8],r=L[9],h=L[10],k=L[11],c=p,B=0;break;case 1820:q=1;break;case 1821:q=0;break;case 1817:(L=[]).push(v),L.push(y),L.push(g),L.push(d),L.push(P),L.push(z),L.push(m),L.push(x),L.push(E),L.push(r.pop()),L.push(r.pop()),L.push(r.pop()),n.push(L);break;case 200:return;default:return"-90_cbb"}}(a,[],0,o.awcbb_yhh_fun0.zhili)}();</script>
 
 </html>
